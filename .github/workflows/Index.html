@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NightLife Groove — Curated Nights. Cultural Moments.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;background:#06060a}
+body{
+  background:#06060a;color:#f0ede8;
+  font-family:'Syne',system-ui,sans-serif;font-weight:400;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-track{background:#06060a}
+::-webkit-scrollbar-thumb{background:#2563ff;border-radius:2px}
+
+:root{
+  --black:#06060a;--dark:#0c0c12;--surface:#121218;--surf2:#18181f;
+  --blue:#2563ff;--blue-lt:#4d7fff;--blue-dim:rgba(37,99,255,.18);
+  --indigo:#6366f1;--violet:#8b5cf6;--rose:#f43f5e;
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,.12);
+  --white:#f0ede8;--muted:rgba(240,237,232,.45);
+  --border:rgba(240,237,232,.07);--glass:rgba(255,255,255,.05);
+  --glass-border:rgba(255,255,255,.1);
+  --ease:cubic-bezier(.4,0,.2,1);--ease-out:cubic-bezier(0,0,.2,1);
+  --ff-serif:'Cormorant Garamond',Georgia,serif;
+  --ff-sans:'Syne',system-ui,sans-serif;
+}
+
+/* ── LIQUID BACKGROUND CANVAS ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 90% 70% at 15% 10%, rgba(37,99,255,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 20%, rgba(139,92,246,.18) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 50% 85%, rgba(99,102,241,.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201,168,76,.10) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 35% at 20% 60%, rgba(244,63,94,.08) 0%, transparent 50%),
+    #06060a;
+  animation: liquidShift 20s ease-in-out infinite alternate;
+}
+@keyframes liquidShift{
+  0%{background-position:0% 0%}
+  33%{background-position:30% 20%}
+  66%{background-position:60% 50%}
+  100%{background-position:100% 80%}
+}
+
+/* animated blob orbs */
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orbFloat linear infinite}
+.bg-orb-1{width:600px;height:600px;left:-150px;top:-100px;background:radial-gradient(circle,rgba(37,99,255,.2),transparent 70%);animation-duration:25s;animation-name:orbFloat1}
+.bg-orb-2{width:500px;height:500px;right:-100px;top:30%;background:radial-gradient(circle,rgba(139,92,246,.18),transparent 70%);animation-duration:30s;animation-name:orbFloat2}
+.bg-orb-3{width:400px;height:400px;left:30%;bottom:-50px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%);animation-duration:22s;animation-name:orbFloat3}
+.bg-orb-4{width:350px;height:350px;right:20%;bottom:20%;background:radial-gradient(circle,rgba(201,168,76,.12),transparent 70%);animation-duration:35s;animation-name:orbFloat4}
+@keyframes orbFloat1{0%{transform:translate(0,0) scale(1)}33%{transform:translate(80px,60px) scale(1.1)}66%{transform:translate(-40px,120px) scale(.95)}100%{transform:translate(0,0) scale(1)}}
+@keyframes orbFloat2{0%{transform:translate(0,0) scale(1)}33%{transform:translate(-60px,80px) scale(1.05)}66%{transform:translate(40px,-60px) scale(.9)}100%{transform:translate(0,0) scale(1)}}
+@keyframes orbFloat3{0%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,-40px) scale(1.08)}100%{transform:translate(0,0) scale(1)}}
+@keyframes orbFloat4{0%{transform:translate(0,0) scale(1)}40%{transform:translate(-80px,40px) scale(1.12)}80%{transform:translate(30px,-30px) scale(.92)}100%{transform:translate(0,0) scale(1)}}
+
+/* grain overlay */
+body::after{
+  content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.032;mix-blend-mode:overlay;
+}
+
+/* all content above backgrounds */
+#navbar,main,footer{position:relative;z-index:10}
+.page,.hero,.stats-strip,.wrap{position:relative;z-index:10}
+
+/* typography */
+.serif{font-family:var(--ff-serif)}
+.label{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--blue-lt);font-family:var(--ff-sans);font-weight:600;display:block}
+.label-gold{color:var(--gold)}
+
+/* LIQUID GLASS card style */
+.glass{
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(32px) saturate(180%);
+  -webkit-backdrop-filter:blur(32px) saturate(180%);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 8px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.glass-liquid{
+  background:linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.02) 50%, rgba(37,99,255,.06) 100%);
+  backdrop-filter:blur(40px) saturate(200%);
+  -webkit-backdrop-filter:blur(40px) saturate(200%);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 16px 48px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1), inset 0 -1px 0 rgba(37,99,255,.08);
+}
+
+/* navbar */
+#navbar{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:24px clamp(20px,5vw,72px);
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  transition:all .4s var(--ease);
+}
+#navbar.scrolled{
+  padding:14px clamp(20px,5vw,72px);
+  background:rgba(6,6,10,.75);
+  backdrop-filter:blur(40px) saturate(180%);-webkit-backdrop-filter:blur(40px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  box-shadow:0 4px 32px rgba(0,0,0,.4);
+}
+#wordmark{
+  background:none;border:none;cursor:pointer;padding:0;
+  font-family:var(--ff-serif);font-size:clamp(17px,2.2vw,20px);
+  font-weight:400;letter-spacing:1px;color:var(--white);flex-shrink:0;
+}
+#wordmark em{color:var(--gold);font-style:italic}
+#nav-links{display:flex;gap:clamp(18px,2.2vw,38px);align-items:center}
+.nav-link{
+  position:relative;text-decoration:none;color:var(--muted);
+  font-family:var(--ff-sans);font-weight:500;font-size:11px;
+  letter-spacing:1.8px;text-transform:uppercase;
+  background:none;border:none;cursor:pointer;padding:4px 0;transition:color .25s;
+}
+.nav-link::after{
+  content:'';position:absolute;bottom:-2px;left:0;right:0;height:1px;
+  background:var(--blue);transform:scaleX(0);transform-origin:right;
+  transition:transform .35s var(--ease);
+}
+.nav-link:hover{color:var(--white)}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1);transform-origin:left}
+.nav-link.active{color:var(--white)}
+.nav-cta{
+  display:inline-block;padding:10px 24px;border:1px solid rgba(37,99,255,.6);
+  color:var(--white);font-family:var(--ff-sans);font-weight:600;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  cursor:pointer;
+  background:linear-gradient(135deg,rgba(37,99,255,.15),rgba(139,92,246,.1));
+  backdrop-filter:blur(16px);flex-shrink:0;
+  transition:background .3s,border-color .3s,box-shadow .3s;
+}
+.nav-cta:hover{
+  background:linear-gradient(135deg,rgba(37,99,255,.4),rgba(139,92,246,.25));
+  border-color:var(--blue);
+  box-shadow:0 0 24px rgba(37,99,255,.3);
+}
+
+/* hamburger */
+#hamburger{
+  display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:4px;z-index:910;
+}
+#hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:transform .3s,opacity .3s}
+#hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px)}
+#hamburger.open span:nth-child(2){opacity:0}
+#hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px)}
+
+/* mobile menu */
+#mobile-menu{
+  display:none;position:fixed;inset:0;z-index:850;
+  background:rgba(6,6,10,.95);backdrop-filter:blur(48px);-webkit-backdrop-filter:blur(48px);
+  flex-direction:column;align-items:center;justify-content:center;gap:4px;
+}
+#mobile-menu.open{display:flex}
+#mobile-menu button{
+  background:none;border:none;cursor:pointer;
+  font-family:var(--ff-serif);font-size:clamp(32px,8vw,52px);
+  font-weight:300;letter-spacing:1px;color:var(--white);line-height:1.6;
+  transition:color .2s;padding:2px 0;
+}
+#mobile-menu button:hover{color:var(--blue-lt)}
+
+/* pages */
+.page{display:none}
+.page.active{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.pg{animation:pgIn .6s var(--ease-out) both}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal.revealed{opacity:1;transform:none}
+.reveal-scale{opacity:0;transform:scale(.96);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal-scale.revealed{opacity:1;transform:scale(1)}
+.d1{transition-delay:.12s}.d2{transition-delay:.22s}.d3{transition-delay:.33s}
+.d4{transition-delay:.44s}.d5{transition-delay:.55s}.d6{transition-delay:.66s}
+
+/* layout */
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,72px)}
+.section-pad{padding:clamp(80px,10vw,140px) 0}
+
+/* buttons */
+.btn{
+  display:inline-block;padding:13px 36px;
+  border:1px solid rgba(37,99,255,.5);
+  background:linear-gradient(135deg,rgba(37,99,255,.15),rgba(139,92,246,.08));
+  backdrop-filter:blur(16px);
+  color:var(--white);font-family:var(--ff-sans);
+  font-weight:600;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .3s;text-decoration:none;
+  position:relative;overflow:hidden;
+  box-shadow:0 4px 24px rgba(37,99,255,.15), inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(37,99,255,.5),rgba(139,92,246,.3));
+  transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);z-index:-1;
+}
+.btn:hover::before{transform:scaleX(1)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(37,99,255,.3)}
+.btn-gold{border-color:rgba(201,168,76,.5);color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.04))}
+.btn-gold::before{background:linear-gradient(135deg,rgba(201,168,76,.5),rgba(201,168,76,.2))}
+.btn-gold:hover{color:var(--white)}
+.btn-ghost{
+  display:inline-block;padding:0;border:none;background:transparent;
+  color:var(--muted);font-family:var(--ff-sans);font-weight:500;
+  font-size:11px;letter-spacing:1.8px;text-transform:uppercase;
+  cursor:pointer;transition:color .25s;text-decoration:none;
+}
+.btn-ghost:hover{color:var(--white)}
+
+.rule{border:none;border-top:1px solid var(--border)}
+
+/* section header */
+.sec-head{margin-bottom:clamp(48px,6vw,80px)}
+.sec-head .label{margin-bottom:16px}
+.sec-title{font-family:var(--ff-serif);font-size:clamp(30px,4.5vw,52px);font-weight:300;line-height:1.05;color:var(--white);letter-spacing:-.5px}
+
+/* footer */
+footer{padding:clamp(60px,8vw,100px) clamp(20px,5vw,72px) 40px;border-top:1px solid var(--border);background:rgba(6,6,10,.8);backdrop-filter:blur(32px)}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:40px 60px;margin-bottom:56px}
+.footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px}
+.footer-brand{font-family:var(--ff-serif);font-size:22px;color:var(--white);margin-bottom:14px}
+.footer-brand em{color:var(--gold);font-style:italic}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.9;max-width:220px}
+.footer-col-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-lt);font-weight:600;margin-bottom:20px;display:block}
+.footer-link{display:block;background:none;border:none;color:var(--muted);font-family:var(--ff-sans);font-size:13px;cursor:pointer;margin-bottom:12px;padding:0;transition:color .25s;letter-spacing:.3px;text-align:left}
+.footer-link:hover{color:var(--white)}
+.footer-copy{font-size:11px;color:rgba(240,237,232,.25);letter-spacing:.5px}
+.footer-socials{display:flex;gap:28px}
+.footer-social{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:color .25s;background:none;border:none;padding:0;font-family:var(--ff-sans)}
+.footer-social:hover{color:var(--white)}
+
+/* forms */
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);font-family:var(--ff-sans);font-weight:600}
+.form-input,.form-textarea,.form-select{
+  width:100%;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-bottom-color:rgba(255,255,255,.18);
+  padding:13px 16px;
+  color:var(--white);font-family:var(--ff-sans);font-weight:400;font-size:14px;
+  outline:none;transition:border-color .25s,background .25s,box-shadow .25s;
+  border-radius:0;-webkit-appearance:none;
+  backdrop-filter:blur(8px);
+}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(240,237,232,.2)}
+.form-input:focus,.form-textarea:focus,.form-select:focus{
+  border-color:var(--blue);
+  background:rgba(37,99,255,.06);
+  box-shadow:0 0 0 1px rgba(37,99,255,.2), 0 4px 16px rgba(37,99,255,.1);
+}
+.form-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(240,237,232,.4)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;background-color:rgba(255,255,255,.04);cursor:pointer;
+}
+.form-select option{background:#141420;color:var(--white)}
+.form-textarea{resize:none;line-height:1.75;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* collab tabs */
+.collab-tabs{display:flex;gap:0;margin-bottom:40px;border-bottom:1px solid var(--border)}
+.collab-tab{
+  background:none;border:none;border-bottom:2px solid transparent;
+  cursor:pointer;padding:12px 24px 12px 0;margin-bottom:-1px;
+  font-family:var(--ff-sans);font-weight:500;font-size:11px;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--muted);transition:color .2s,border-color .2s;
+}
+.collab-tab.active{color:var(--white);border-bottom-color:var(--blue)}
+.collab-tab:hover{color:var(--white)}
+.field-venue,.field-artist{display:none}
+.field-venue.show,.field-artist.show{display:flex;flex-direction:column;gap:8px}
+#collab-success{display:none;max-width:520px;text-align:center;padding:60px 0}
+#collab-success.show{display:block}
+#collab-form-wrap.hide{display:none}
+
+/* ── HERO ── */
+.hero{
+  position:relative;height:100svh;min-height:640px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 clamp(20px,5vw,72px) clamp(60px,8vw,100px);
+  overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:heroZoom 18s ease-in-out infinite alternate}
+@keyframes heroZoom{0%{transform:scale(1.08) translateY(0)}100%{transform:scale(1.14) translateY(-2%)}}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(6,6,10,.97) 0%,rgba(6,6,10,.5) 42%,rgba(6,6,10,.2) 70%,rgba(6,6,10,.3) 100%),
+    radial-gradient(ellipse 80% 50% at 70% 20%,rgba(37,99,255,.18),transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%,rgba(139,92,246,.12),transparent 55%);
+}
+
+/* liquid glass hero info panel */
+.hero-glass-badge{
+  display:inline-block;
+  padding:6px 16px;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(37,99,255,.12));
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:2px;
+  margin-bottom:24px;
+  box-shadow:0 4px 16px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.1);
+  opacity:0;transform:translateY(16px);animation:fadeUp .7s .5s var(--ease-out) forwards;
+}
+.hero-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue-lt);font-weight:600;display:inline}
+.hero-content{position:relative;z-index:2;max-width:900px}
+.hero-h1{font-family:var(--ff-serif);font-size:clamp(52px,9vw,118px);font-weight:300;line-height:.95;letter-spacing:-1.5px;color:var(--white);margin-bottom:36px;opacity:0;transform:translateY(28px);animation:fadeUp .9s .7s var(--ease-out) forwards}
+.hero-h1 em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:clamp(14px,1.6vw,16px);color:var(--muted);line-height:1.85;max-width:480px;margin-bottom:44px;opacity:0;transform:translateY(20px);animation:fadeUp .8s .95s var(--ease-out) forwards}
+.hero-actions{display:flex;gap:20px;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(16px);animation:fadeUp .7s 1.15s var(--ease-out) forwards}
+
+/* hero audience tags */
+.hero-audience{position:absolute;right:clamp(20px,5vw,72px);bottom:clamp(60px,8vw,100px);z-index:2;display:flex;flex-direction:column;gap:12px;align-items:flex-end;opacity:0;animation:fadeUp .8s 1.4s var(--ease-out) forwards}
+.hero-aud-pill{
+  padding:8px 18px;
+  background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(37,99,255,.1));
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,.1);
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--white);font-weight:600;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+  cursor:pointer;transition:all .3s;
+}
+.hero-aud-pill:hover{border-color:var(--blue);background:linear-gradient(135deg,rgba(37,99,255,.25),rgba(139,92,246,.15));box-shadow:0 8px 24px rgba(37,99,255,.2)}
+.hero-aud-label{font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;text-align:right}
+
+.scroll-cue{position:absolute;bottom:clamp(20px,3vw,32px);left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .6s 1.8s var(--ease-out) forwards}
+.scroll-cue span{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--blue),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* ── audience toggle section on home ── */
+.audience-toggle{
+  display:flex;gap:0;
+  background:rgba(255,255,255,.03);
+  backdrop-filter:blur(32px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:2px;
+  overflow:hidden;
+  margin-bottom:clamp(48px,6vw,72px);
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+}
+.aud-btn{
+  flex:1;padding:18px 24px;background:none;border:none;cursor:pointer;
+  font-family:var(--ff-sans);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);transition:all .35s;position:relative;text-align:center;
+}
+.aud-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transition:transform .35s}
+.aud-btn.active{color:var(--white);background:linear-gradient(135deg,rgba(37,99,255,.12),rgba(139,92,246,.06))}
+.aud-btn.active::after{transform:scaleX(1)}
+.aud-btn:hover{color:var(--white)}
+.aud-panel{display:none}
+.aud-panel.active{display:block}
+
+/* nights grid */
+.nights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.night-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:4/5}
+.night-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);display:block}
+.night-card:hover img{transform:scale(1.06)}
+.night-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,10,.92) 0%,rgba(6,6,10,.2) 55%,transparent 100%);transition:background .4s}
+.night-card:hover .night-card-overlay{background:linear-gradient(to top,rgba(6,6,10,.97) 0%,rgba(6,6,10,.38) 60%,transparent 100%)}
+.night-card-body{position:absolute;bottom:0;left:0;right:0;padding:28px 24px}
+.night-card-name{font-family:var(--ff-serif);font-size:clamp(17px,2vw,22px);font-weight:400;color:var(--white);margin-bottom:6px;line-height:1.2}
+.night-card-meta{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.night-card-price{display:inline-block;margin-top:10px;padding:4px 12px;background:rgba(37,99,255,.25);backdrop-filter:blur(12px);border:1px solid rgba(37,99,255,.3);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue-lt);font-weight:600}
+.night-card-tag{position:absolute;top:20px;left:20px;padding:5px 12px;background:rgba(6,6,10,.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue-lt);font-weight:600}
+
+/* venue cards */
+.venue-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.venue-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(37,99,255,.05));
+  backdrop-filter:blur(32px);
+  border:1px solid rgba(255,255,255,.1);
+  padding:32px 28px;
+  transition:all .4s;
+  box-shadow:0 8px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.venue-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(37,99,255,.1),transparent);opacity:0;transition:opacity .4s}
+.venue-card:hover::before{opacity:1}
+.venue-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(37,99,255,.2), inset 0 1px 0 rgba(255,255,255,.1);border-color:rgba(37,99,255,.3)}
+.venue-card-icon{font-size:2rem;margin-bottom:20px;display:block}
+.venue-card-title{font-family:var(--ff-serif);font-size:20px;color:var(--white);margin-bottom:10px}
+.venue-card-desc{font-size:12px;color:var(--muted);line-height:1.85}
+
+/* pull quote */
+.pull-quote-section{padding:clamp(80px,11vw,140px) clamp(20px,5vw,72px);text-align:center;max-width:880px;margin:0 auto}
+.pull-quote-text{font-family:var(--ff-serif);font-size:clamp(22px,3.8vw,40px);font-weight:300;line-height:1.5;font-style:italic;color:var(--white);letter-spacing:.3px}
+.pull-quote-attr{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px}
+.pull-quote-line{width:40px;height:1px;background:var(--gold)}
+
+/* artist teaser */
+.artist-teaser-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.atc{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4}
+.atc:nth-child(2){margin-top:48px}
+.atc:nth-child(4){margin-top:80px}
+.atc img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.atc:hover img{transform:scale(1.06)}
+.atc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,10,.9) 0%,rgba(6,6,10,.15) 60%,transparent 100%)}
+.atc-info{position:absolute;bottom:0;left:0;right:0;padding:22px 18px}
+.atc-name{font-family:var(--ff-serif);font-size:17px;font-weight:400;color:var(--white);margin-bottom:4px}
+.atc-genre{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt)}
+.atc-corner{position:absolute;top:16px;right:16px;width:26px;height:26px;border-top:1px solid rgba(37,99,255,.5);border-right:1px solid rgba(37,99,255,.5);opacity:0;transform:translate(4px,-4px);transition:opacity .4s,transform .4s}
+.atc:hover .atc-corner{opacity:1;transform:translate(0,0)}
+
+/* journal teaser */
+.jt-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(32px,5vw,80px)}
+.jt-article{border-top:1px solid var(--border);padding-top:28px;cursor:pointer;transition:padding-left .3s var(--ease)}
+.jt-article:hover{padding-left:12px}
+.jt-num{font-size:10px;letter-spacing:3px;color:var(--muted);margin-bottom:14px}
+.jt-title{font-family:var(--ff-serif);font-size:clamp(18px,2.5vw,26px);font-weight:400;color:var(--white);margin-bottom:10px;line-height:1.25}
+.jt-desc{font-size:13px;color:var(--muted);line-height:1.85;margin-bottom:18px}
+
+/* page hero */
+.page-hero{padding-top:clamp(130px,15vw,180px);padding-bottom:0;position:relative;overflow:hidden}
+.page-hero-bg{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 20%,rgba(37,99,255,.18),transparent 65%),
+    radial-gradient(ellipse 50% 40% at 20% 80%,rgba(139,92,246,.12),transparent 55%);
+}
+.page-hero-content{position:relative;z-index:1}
+.page-hero-eyebrow{margin-bottom:24px}
+.page-hero-h1{font-family:var(--ff-serif);font-size:clamp(44px,7.5vw,96px);font-weight:300;line-height:.95;letter-spacing:-1px;color:var(--white);margin-bottom:24px}
+.page-hero-h1 em{color:var(--gold);font-style:italic}
+.page-hero-sub{font-size:clamp(15px,1.7vw,17px);color:rgba(240,237,232,.6);line-height:1.9;max-width:560px;margin-bottom:52px}
+
+/* about */
+.about-hero-img{width:100%;height:clamp(300px,42vw,540px);position:relative;overflow:hidden}
+.about-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.about-prose-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,100px)}
+.about-prose-p{font-size:clamp(14px,1.6vw,16px);color:rgba(240,237,232,.65);line-height:1.95;margin-bottom:24px}
+.about-prose-p:last-child{margin-bottom:0}
+.values-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0}
+.value-item{border-top:1px solid var(--border);padding:32px 28px 32px 0;transition:background .3s}
+.value-item:hover{background:rgba(255,255,255,.015)}
+.value-num{font-size:10px;letter-spacing:3px;color:var(--blue-lt);font-weight:600;margin-bottom:16px}
+.value-title{font-family:var(--ff-serif);font-size:19px;font-weight:400;color:var(--white);margin-bottom:10px}
+.value-desc{font-size:12px;color:var(--muted);line-height:1.85}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:2px}
+.team-card{cursor:pointer}
+.team-img{height:290px;position:relative;overflow:hidden}
+.team-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease)}
+.team-card:hover .team-img img{transform:scale(1.05)}
+.team-info{padding:18px 4px 28px}
+.team-name{font-family:var(--ff-serif);font-size:17px;font-weight:400;color:var(--white);margin-bottom:4px}
+.team-role{font-size:11px;color:var(--muted);letter-spacing:.3px}
+
+/* experiences */
+.exp-row{
+  display:grid;grid-template-columns:clamp(200px,30vw,360px) 1fr;
+  gap:0;cursor:pointer;position:relative;overflow:hidden;
+  margin-bottom:2px;
+  background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(37,99,255,.03));
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.08);
+  transition:border-color .35s,box-shadow .35s;
+}
+.exp-row:hover{border-color:rgba(37,99,255,.35);box-shadow:0 16px 48px rgba(37,99,255,.15)}
+.exp-img{position:relative;overflow:hidden;height:clamp(200px,28vw,280px)}
+.exp-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.exp-row:hover .exp-img img{transform:scale(1.06)}
+.exp-body{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.exp-category{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--blue-lt);font-weight:600}
+.exp-title{font-family:var(--ff-serif);font-size:clamp(22px,3vw,36px);font-weight:300;color:var(--white);line-height:1.15}
+.exp-desc{font-size:13px;color:var(--muted);line-height:1.9;max-width:380px}
+.exp-arrow{position:absolute;right:28px;bottom:28px;font-size:18px;color:var(--blue-lt);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s}
+.exp-row:hover .exp-arrow{opacity:1;transform:none}
+
+/* exp detail — no image version (consultancy) */
+.exp-no-img-hero{
+  padding:clamp(32px,5vw,64px);
+  background:linear-gradient(135deg,rgba(37,99,255,.1),rgba(139,92,246,.08));
+  backdrop-filter:blur(32px);
+  border:1px solid rgba(37,99,255,.2);
+  margin-bottom:clamp(40px,6vw,80px);
+  position:relative;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
+}
+.exp-no-img-hero::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(37,99,255,.2),transparent 70%);
+  pointer-events:none;
+}
+.exp-no-img-hero::after{
+  content:'';position:absolute;bottom:-40px;left:20%;width:200px;height:200px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(139,92,246,.15),transparent 70%);
+  pointer-events:none;
+}
+
+.exp-detail-img{width:100%;height:clamp(260px,40vw,500px);position:relative;overflow:hidden}
+.exp-detail-img img{width:100%;height:100%;object-fit:cover;display:block}
+.bullets-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:2px}
+.bullet-item{border-top:1px solid var(--border);padding:26px 22px 26px 0;transition:padding-left .3s,background .3s}
+.bullet-item:hover{padding-left:8px;background:rgba(255,255,255,.015)}
+.bullet-num{font-size:10px;letter-spacing:3px;color:var(--blue-lt);font-weight:600;margin-bottom:12px}
+.bullet-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:8px}
+.bullet-desc{font-size:12px;color:var(--muted);line-height:1.85}
+
+/* artists / performers */
+.roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px}
+.roster-card{cursor:pointer}
+.roster-img{height:330px;position:relative;overflow:hidden}
+.roster-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.roster-card:hover .roster-img img{transform:scale(1.06)}
+.roster-reveal{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,10,.9),rgba(6,6,10,.2) 60%,transparent);display:flex;align-items:flex-end;padding:24px;opacity:0;transition:opacity .4s}
+.roster-card:hover .roster-reveal{opacity:1}
+.roster-info{padding:16px 4px 26px}
+.roster-name{font-family:var(--ff-serif);font-size:17px;font-weight:400;color:var(--white);margin-bottom:4px}
+.roster-genre{font-size:10px;color:var(--blue-lt);letter-spacing:2px;text-transform:uppercase;margin-bottom:2px}
+.roster-city{font-size:11px;color:var(--muted);letter-spacing:.3px}
+
+/* journal */
+.journal-article{border-top:1px solid var(--border);padding:32px 0;cursor:pointer;transition:padding-left .3s var(--ease);display:grid;grid-template-columns:70px 1fr auto;gap:28px;align-items:center}
+.journal-article:hover{padding-left:16px;border-top-color:rgba(37,99,255,.3)}
+.journal-article:last-child{border-bottom:1px solid var(--border)}
+.j-num{font-family:var(--ff-serif);font-size:2.2rem;font-weight:300;color:rgba(240,237,232,.12);line-height:1}
+.j-meta{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.j-title{font-family:var(--ff-serif);font-size:clamp(20px,2.8vw,30px);font-weight:400;color:var(--white);margin-bottom:8px;line-height:1.25}
+.j-desc{font-size:13px;color:var(--muted);line-height:1.85}
+.j-arrow{font-size:18px;color:var(--blue-lt);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s;flex-shrink:0}
+.journal-article:hover .j-arrow{opacity:1;transform:none}
+
+/* liquid divider */
+.liquid-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(37,99,255,.4),rgba(139,92,246,.3),rgba(201,168,76,.2),transparent);
+  margin:0;border:none;
+}
+
+/* responsive */
+@media(max-width:900px){
+  #nav-links,.nav-cta{display:none}
+  #hamburger{display:flex}
+  .hero-audience{display:none}
+  .nights-grid{grid-template-columns:repeat(2,1fr)}
+  .artist-teaser-grid{grid-template-columns:repeat(2,1fr)}
+  .atc:nth-child(2),.atc:nth-child(4){margin-top:0}
+  .jt-grid{grid-template-columns:1fr}
+  .about-prose-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .exp-row{grid-template-columns:1fr}
+  .exp-img{height:220px}
+  .journal-article{grid-template-columns:50px 1fr;gap:18px}
+  .j-arrow{display:none}
+  .form-row{grid-template-columns:1fr}
+  .scroll-cue{display:none}
+  #collab-layout{grid-template-columns:1fr!important}
+  .venue-cards{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .nights-grid{grid-template-columns:1fr}
+  .artist-teaser-grid{grid-template-columns:repeat(2,1fr)}
+  .roster-grid{grid-template-columns:repeat(2,1fr)}
+  .roster-img{height:230px}
+  .footer-grid{grid-template-columns:1fr}
+  .journal-article{grid-template-columns:1fr;gap:6px}
+  .j-num{display:none}
+  .audience-toggle{flex-direction:column}
+}
+
+/* 🔥 MOBILE OPTIMIZATION FIX */
+@media (max-width: 768px){
+  .hero-content{
+    text-align:center;
+    padding:0 20px;
+  }
+  .hero-h1{
+    font-size:clamp(32px,8vw,42px);
+    line-height:1.2;
+  }
+  .hero-sub{
+    font-size:14px;
+    line-height:1.6;
+    max-width:90%;
+    margin:0 auto 20px;
+  }
+  .hero-actions{
+    flex-direction:column;
+    gap:12px;
+    align-items:center;
+  }
+  .hero-actions .btn{
+    width:100%;
+    max-width:260px;
+  }
+  .hero-audience{
+    flex-direction:column;
+    gap:10px;
+    padding:0 20px;
+  }
+  .wrap{
+    padding:0 20px !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- background orbs -->
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+<div class="bg-orb bg-orb-4"></div>
+
+<!-- NAVBAR -->
+<header id="navbar">
+  <button id="wordmark" onclick="go('home')">NightLife <em>Groove</em></button>
+  <nav id="nav-links">
+    <button class="nav-link active" onclick="go('home')">Home</button>
+    <button class="nav-link" onclick="go('about')">About</button>
+    <button class="nav-link" onclick="go('experiences')">For Venues</button>
+    <button class="nav-link" onclick="go('events')">Events</button>
+    <button class="nav-link" onclick="go('journal')">Journal</button>
+    <button class="nav-cta" onclick="go('collaborate')">Get Started</button>
+  </nav>
+  <button id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button onclick="go('home')">Home</button>
+  <button onclick="go('about')">About</button>
+  <button onclick="go('experiences')">For Venues</button>
+  <button onclick="go('events')">Events</button>
+  <button onclick="go('journal')">Journal</button>
+  <button onclick="go('collaborate')">Get Started</button>
+</div>
+
+<main>
+
+<!-- ══ HOME ════════════════════════════════════════════════════════════════ -->
+<div id="page-home" class="page active"><div class="pg">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="https://images.unsplash.com/photo-1575037614876-c38a4d44f5b8?auto=format&fit=crop&w=1920&q=80" alt="Vibrant restaurant event night" loading="eager"/>
+    </div>
+    <div class="hero-content">
+      
+      <h1 class="hero-h1">Turn your<br>venue into an<br><em>event.</em></h1>
+      <p class="hero-sub">We partner with restaurants, bars, and rooftops to design and curate extraordinary evenings — and connect experience-seekers with nights they'll never forget.</p>
+      <div class="hero-actions">
+        <button class="btn" onclick="go('experiences')">I Own a Venue</button>
+        <button class="btn btn-gold" onclick="go('events')">Find an Event</button>
+      </div>
+    </div>
+    <div class="hero-audience">
+      <p class="hero-aud-label">Who are you?</p>
+      <button class="hero-aud-pill" onclick="go('experiences')">🍸 Venue Owner / Bar</button>
+      <button class="hero-aud-pill" onclick="go('experiences')">🍽️ Restaurant</button>
+      <button class="hero-aud-pill" onclick="go('events')">🎵 Event-Goer</button>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <!-- DUAL AUDIENCE SECTION -->
+  <section class="wrap" style="padding:clamp(80px,10vw,120px) clamp(20px,5vw,72px)">
+    <div class="sec-head reveal" style="text-align:center;max-width:620px;margin:0 auto clamp(48px,6vw,72px)">
+      <span class="label" style="margin-bottom:16px;justify-content:center;display:flex">What we do</span>
+      <h2 class="sec-title">Two audiences.<br>One unforgettable night.</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" class="reveal d1">
+      <!-- Venue Owner card -->
+      <div class="glass-liquid" style="padding:clamp(32px,4vw,56px);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,255,.15),transparent 70%);pointer-events:none"></div>
+        <span class="label" style="margin-bottom:20px">For Venue Owners</span>
+        <p style="font-family:var(--ff-serif);font-size:clamp(22px,3vw,34px);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:20px">Your bar. Our<br><em>curation.</em></p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:32px">We transform restaurants and bars into sought-after event venues — handling artist booking, atmosphere design, promotion, and night-of production. You focus on hospitality; we deliver the magic.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
+          <span style="padding:5px 12px;background:rgba(37,99,255,.15);border:1px solid rgba(37,99,255,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt)">Artist Booking</span>
+          <span style="padding:5px 12px;background:rgba(37,99,255,.15);border:1px solid rgba(37,99,255,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt)">Event Design</span>
+          <span style="padding:5px 12px;background:rgba(37,99,255,.15);border:1px solid rgba(37,99,255,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt)">Promotion</span>
+          <span style="padding:5px 12px;background:rgba(37,99,255,.15);border:1px solid rgba(37,99,255,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-lt)">Full Production</span>
+        </div>
+        <button class="btn" onclick="go('experiences')">Curate with us →</button>
+      </div>
+      <!-- Event-goer card -->
+      <div class="glass-liquid" style="padding:clamp(32px,4vw,56px);position:relative;overflow:hidden">
+        <div style="position:absolute;top:-30px;right:-30px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.15),transparent 70%);pointer-events:none"></div>
+        <span class="label label-gold" style="margin-bottom:20px">For Event-Goers</span>
+        <p style="font-family:var(--ff-serif);font-size:clamp(22px,3vw,34px);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:20px">Find your<br><em>next night.</em></p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px">We design and curate unforgettable nights — matching the right crowd, artists, and energy to every venue.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
+          <span style="padding:5px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Live Music</span>
+          <span style="padding:5px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">DJ Sets</span>
+          <span style="padding:5px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Dining Experiences</span>
+          <span style="padding:5px 12px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)">Rooftop Nights</span>
+        </div>
+        <button class="btn btn-gold" onclick="go('events')">Browse Events →</button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="liquid-divider">
+
+  <!-- UPCOMING EVENTS GRID -->
+  <section class="wrap section-pad">
+    <div class="sec-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+      <div class="reveal"><span class="label" style="margin-bottom:14px">Upcoming</span><h2 class="sec-title">Nights worth going out for</h2></div>
+      <button class="btn-ghost reveal d2" onclick="go('events')">All Events →</button>
+    </div>
+    <div class="nights-grid">
+      <div class="night-card reveal" onclick="go('events')">
+        <span class="night-card-tag">Jazz Brunch · Weekly</span>
+        <img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?auto=format&fit=crop&w=800&q=80" alt="Jazz Brunch at The Ivory Bar"/>
+        <div class="night-card-overlay"></div>
+        <div class="night-card-body">
+          <p class="night-card-name">Sunday Soul Sessions</p>
+          <p class="night-card-meta">The Ivory Bar, Bandra · Every Sunday</p>
+          <span class="night-card-price">₹800 onwards</span>
+        </div>
+      </div>
+      <div class="night-card reveal d2" onclick="go('events')">
+        <span class="night-card-tag">Rooftop · Monthly</span>
+        <img src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?auto=format&fit=crop&w=800&q=80" alt="The Golden Hour Rooftop"/>
+        <div class="night-card-overlay"></div>
+        <div class="night-card-body">
+          <p class="night-card-name">Skyline Sundowners</p>
+          <p class="night-card-meta">Altitude Bar, Aerocity · Last Saturday</p>
+          <span class="night-card-price">₹1200 onwards</span>
+        </div>
+      </div>
+      <div class="night-card reveal d3" onclick="go('events')">
+        <span class="night-card-tag">Electronic · Quarterly</span>
+        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80" alt="Underground Electronic"/>
+        <div class="night-card-overlay"></div>
+        <div class="night-card-body">
+          <p class="night-card-name">Frequency — The Quarterly</p>
+          <p class="night-card-meta">The Cellar, Indiranagar · Quarterly</p>
+          <span class="night-card-price">₹1500 onwards</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <div style="background:rgba(6,6,10,.6);border-top:1px solid var(--border);border-bottom:1px solid var(--border);backdrop-filter:blur(32px)">
+    <div class="pull-quote-section reveal">
+      <p class="pull-quote-text">"Your venue already has a story. We write the chapter where it becomes a destination — for the right crowd, on the right night."</p>
+      <div class="pull-quote-attr">
+        <div class="pull-quote-line"></div>
+        <span class="label label-gold" style="margin:0">NightLife Groove</span>
+        <div class="pull-quote-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENUE TYPES -->
+  <section class="wrap section-pad">
+    <div class="sec-head" style="text-align:center;max-width:560px;margin:0 auto clamp(48px,6vw,72px)">
+      <div class="reveal"><span class="label" style="justify-content:center;display:flex;margin-bottom:14px">Venue Partners</span><h2 class="sec-title">Every kind of space</h2></div>
+    </div>
+    <div class="venue-cards reveal d1">
+      <div class="venue-card">
+        <span class="venue-card-icon">🍸</span>
+        <h3 class="venue-card-title">Bars & Cocktail Lounges</h3>
+        <p class="venue-card-desc">Transform slow weeknights into must-attend evenings. We curate themed nights, live sessions, and DJ residencies perfectly matched to your bar's personality and crowd.</p>
+      </div>
+      <div class="venue-card">
+        <span class="venue-card-icon">🍽️</span>
+        <h3 class="venue-card-title">Restaurants</h3>
+        <p class="venue-card-desc">Add a cultural dimension to dining — supper clubs, live music dinners, chef's table evenings with ambient performances. We make your restaurant a destination beyond the menu.</p>
+      </div>
+      <div class="venue-card">
+        <span class="venue-card-icon">🏙️</span>
+        <h3 class="venue-card-title">Rooftops & Terraces</h3>
+        <p class="venue-card-desc">Sunset sessions, full moon parties, seasonal series. We leverage your sky and skyline to create evenings that sell out — and keep people coming back.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTIST TEASER -->
+  <section class="wrap" style="padding-bottom:clamp(80px,10vw,140px)">
+    <div class="sec-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+      <div class="reveal"><span class="label" style="margin-bottom:14px">Featured Artists</span><h2 class="sec-title">Talent we bring to your stage</h2></div>
+      <button class="btn-ghost reveal d2" onclick="go('artists')">Full Roster →</button>
+    </div>
+    <div class="artist-teaser-grid">
+      <div class="atc reveal" onclick="go('artists')">
+        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="DJ Solaris"/>
+        <div class="atc-overlay"></div><div class="atc-corner"></div>
+        <div class="atc-info"><p class="atc-name">DJ Solaris</p><p class="atc-genre">House / Progressive</p></div>
+      </div>
+      <div class="atc reveal d2" onclick="go('artists')">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Nyx"/>
+        <div class="atc-overlay"></div><div class="atc-corner"></div>
+        <div class="atc-info"><p class="atc-name">Nyx</p><p class="atc-genre">Deep House / Ambient</p></div>
+      </div>
+      <div class="atc reveal d3" onclick="go('artists')">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80" alt="VØLTEX"/>
+        <div class="atc-overlay"></div><div class="atc-corner"></div>
+        <div class="atc-info"><p class="atc-name">VØLTEX</p><p class="atc-genre">Drum &amp; Bass</p></div>
+      </div>
+      <div class="atc reveal d4" onclick="go('artists')">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80" alt="Zara K."/>
+        <div class="atc-overlay"></div><div class="atc-corner"></div>
+        <div class="atc-info"><p class="atc-name">Zara K.</p><p class="atc-genre">Jazz / Nu-Soul</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL TEASER -->
+  <section class="wrap" style="padding-bottom:clamp(80px,10vw,140px)">
+    <hr class="rule" style="margin-bottom:clamp(48px,6vw,80px)">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:40px">
+      <div class="reveal"><span class="label" style="margin-bottom:14px">Journal</span><h2 class="sec-title" style="font-size:clamp(26px,3.8vw,40px)">Insights for venue owners &amp; night lovers</h2></div>
+      <button class="btn-ghost reveal d2" onclick="go('journal')">All Articles →</button>
+    </div>
+    <div class="jt-grid">
+      <article class="jt-article reveal" onclick="go('journal')">
+        <p class="jt-num">#1 · April 2025 · 8 min</p>
+        <h3 class="jt-title">How to turn your restaurant into a Friday night destination</h3>
+        <p class="jt-desc">The three elements every venue needs before hosting its first event — and what most owners miss.</p>
+        <button class="btn-ghost">Read →</button>
+      </article>
+      <article class="jt-article reveal d2" onclick="go('journal')">
+        <p class="jt-num">#2 · March 2025 · 5 min</p>
+        <h3 class="jt-title">What makes a night worth going out for?</h3>
+        <p class="jt-desc">On curation, atmosphere, and why the best events feel inevitable — not accidental.</p>
+        <button class="btn-ghost">Read →</button>
+      </article>
+    </div>
+  </section>
+
+</div></div><!-- /home -->
+
+
+<!-- ══ ABOUT ═══════════════════════════════════════════════════════════════ -->
+<div id="page-about" class="page"><div class="pg">
+
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">About</span>
+      <h1 class="page-hero-h1 reveal d1">Where venue meets<br><em>vision.</em></h1>
+      <p class="page-hero-sub reveal d2">NightLife Groove was built on one belief: that great venues are underleveraged cultural assets. We exist to change that — one curated night at a time.</p>
+    </div>
+  </div>
+
+  <div class="about-hero-img reveal-scale">
+    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80" alt="Elegant restaurant event setting"/>
+  </div>
+
+  <section class="wrap section-pad">
+    <div class="about-prose-grid">
+      <div class="reveal">
+        <p class="about-prose-p">We work with some of the most interesting bars, restaurants, and hospitality spaces across India — helping them discover what kind of event venue they could be, then building toward it with intention.</p>
+        <p class="about-prose-p">We enter every partnership as architects, not operators. Our job is to understand the space, the DNA of the venue, and the crowd it deserves — then design backwards from there.</p>
+      </div>
+      <div class="reveal d2">
+        <p class="about-prose-p">For those looking to attend: every event we promote has been personally curated. We don't list everything — we list what's worth your evening. The right room, the right artist, the right night.</p>
+        <p class="about-prose-p">Based in Mumbai. Operating across Delhi, Bangalore, Goa, Pune, and Hyderabad.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule wrap">
+
+  <section class="wrap section-pad">
+    <span class="label reveal" style="margin-bottom:40px">What we hold to</span>
+    <div class="values-grid">
+      <div class="value-item reveal"><p class="value-num">01</p><h3 class="value-title">Venue over volume</h3><p class="value-desc">We partner with fewer venues and go deeper into each relationship.</p></div>
+      <div class="value-item reveal d2"><p class="value-num">02</p><h3 class="value-title">Atmosphere as revenue</h3><p class="value-desc">The right event increases covers, retention, and brand equity — not just ticket sales.</p></div>
+      <div class="value-item reveal d3"><p class="value-num">03</p><h3 class="value-title">Artist-forward</h3><p class="value-desc">We represent talent with care — their reputation is ours too.</p></div>
+      <div class="value-item reveal d4"><p class="value-num">04</p><h3 class="value-title">City as canvas</h3><p class="value-desc">Every city has underserved cultural appetite. We find it and feed it.</p></div>
+    </div>
+  </section>
+
+  <hr class="rule wrap">
+
+  <section class="wrap section-pad">
+    <span class="label reveal" style="margin-bottom:40px">The people</span>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <div class="team-img"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" alt="Arjun Mehta"/></div>
+        <div class="team-info"><p class="team-name">Arjun Mehta</p><p class="team-role">Founder &amp; Director</p></div>
+      </div>
+      <div class="team-card reveal d2">
+        <div class="team-img"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=600&q=80" alt="Priya Sinha"/></div>
+        <div class="team-info"><p class="team-name">Priya Sinha</p><p class="team-role">Venue Partnerships</p></div>
+      </div>
+      <div class="team-card reveal d3">
+        <div class="team-img"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Dev Rajan"/></div>
+        <div class="team-info"><p class="team-name">Dev Rajan</p><p class="team-role">Event Strategy</p></div>
+      </div>
+      <div class="team-card reveal d4">
+        <div class="team-img"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Mia Kaur"/></div>
+        <div class="team-info"><p class="team-name">Mia Kaur</p><p class="team-role">Creative Direction</p></div>
+      </div>
+    </div>
+    <div style="margin-top:48px" class="reveal d2"><button class="btn" onclick="go('collaborate')">Partner with us</button></div>
+  </section>
+
+</div></div><!-- /about -->
+
+
+<!-- ══ FOR VENUES (EXPERIENCES) ═════════════════════════════════════════════ -->
+<div id="page-experiences" class="page"><div class="pg">
+
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">For Venue Owners</span>
+      <h1 class="page-hero-h1 reveal d1">What we can do<br>for your <em>space.</em></h1>
+      <p class="page-hero-sub reveal d2">Three ways we work with restaurants, bars, and hospitality venues to create events that drive footfall, brand, and revenue.</p>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding:clamp(40px,6vw,72px) clamp(20px,5vw,72px) clamp(80px,10vw,140px)">
+    <div class="reveal"><div class="exp-row" onclick="go('exp-curation')">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?auto=format&fit=crop&w=720&q=80" alt="Event Curation at Restaurant"/></div>
+      <div class="exp-body">
+        <p class="exp-category">Bars &amp; Restaurants</p>
+        <h2 class="exp-title">Event Curation</h2>
+        <p class="exp-desc">We design and produce full-scale events in your venue — from concept and artist booking to night-of production. You serve; we create the moment.</p>
+        <button class="btn-ghost" style="margin-top:6px">Discover →</button>
+      </div>
+      <span class="exp-arrow">→</span>
+    </div></div>
+    <div class="reveal d1"><div class="exp-row" onclick="go('exp-consultancy')">
+      <div class="exp-body" style="grid-column:1/-1">
+        <p class="exp-category">Strategic Partnership</p>
+        <h2 class="exp-title">Night Consultancy</h2>
+        <p class="exp-desc">Not sure what kind of events your venue should host? We audit your space, understand your brand, and build a programming strategy that fits — from monthly residencies to seasonal series.</p>
+        <button class="btn-ghost" style="margin-top:6px">Discover →</button>
+      </div>
+      <span class="exp-arrow">→</span>
+    </div></div>
+    <div class="reveal d2"><div class="exp-row" onclick="go('exp-talent')">
+      <div class="exp-img"><img src="https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=720&q=80" alt="Artist Performance at Venue"/></div>
+      <div class="exp-body">
+        <p class="exp-category">Artist Booking</p>
+        <h2 class="exp-title">Talent Placement</h2>
+        <p class="exp-desc">We match the right artists to your space and brand — curating performances that elevate your venue's identity and create loyal regulars.</p>
+        <button class="btn-ghost" style="margin-top:6px">Discover →</button>
+      </div>
+      <span class="exp-arrow">→</span>
+    </div></div>
+  </section>
+
+</div></div><!-- /experiences -->
+
+
+<!-- ══ EXP: CURATION ════════════════════════════════════════════════════════ -->
+<div id="page-exp-curation" class="page"><div class="pg">
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Service — Event Curation</span>
+      <h1 class="page-hero-h1 reveal d1">We turn your venue<br>into an <em>event.</em></h1>
+      <p class="page-hero-sub reveal d2">From the first conversation to the final chord, we handle everything — so your team can focus on delivering great hospitality while we deliver an unforgettable atmosphere.</p>
+    </div>
+  </div>
+  <div class="exp-detail-img reveal-scale"><img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?auto=format&fit=crop&w=1600&q=80" alt="Restaurant event night"/></div>
+  <section class="wrap section-pad">
+    <span class="label reveal" style="margin-bottom:28px">Our process</span>
+    <div class="bullets-grid">
+      <div class="bullet-item reveal"><p class="bullet-num">01</p><p class="bullet-title">Venue Audit</p><p class="bullet-desc">We assess your space, capacity, existing brand, and current audience to identify the right event format.</p></div>
+      <div class="bullet-item reveal d2"><p class="bullet-num">02</p><p class="bullet-title">Concept Design</p><p class="bullet-desc">We develop the event narrative, theme, and atmosphere that fits your venue's character and target crowd.</p></div>
+      <div class="bullet-item reveal d3"><p class="bullet-num">03</p><p class="bullet-title">Artist Booking</p><p class="bullet-desc">We source and confirm talent from our curated roster — matched precisely to the mood you're building.</p></div>
+      <div class="bullet-item reveal d4"><p class="bullet-num">04</p><p class="bullet-title">Promotion</p><p class="bullet-desc">Targeted outreach across social, curated mailing lists, and our own event-goer community.</p></div>
+      <div class="bullet-item reveal d5"><p class="bullet-num">05</p><p class="bullet-title">Night-of Production</p><p class="bullet-desc">We're on-site. Sound, staging, artist liaison, guest flow — all managed so your staff can focus on service.</p></div>
+    </div>
+    <div style="margin-top:48px;display:flex;gap:16px;flex-wrap:wrap" class="reveal d2">
+      <button class="btn" onclick="go('collaborate')">Start a conversation</button>
+      <button class="btn-ghost" onclick="go('experiences')">← Back</button>
+    </div>
+  </section>
+</div></div>
+
+<!-- ══ EXP: CONSULTANCY ═════════════════════════════════════════════════════ -->
+<div id="page-exp-consultancy" class="page"><div class="pg">
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Service — Night Consultancy</span>
+      <h1 class="page-hero-h1 reveal d1">Strategy for<br>your <em>venue.</em></h1>
+      <p class="page-hero-sub reveal d2">We help bars and restaurants discover what kind of event space they should become — then build the programming roadmap to get there.</p>
+    </div>
+  </div>
+  <section class="wrap" style="padding:clamp(40px,5vw,72px) clamp(20px,5vw,72px)">
+    <div class="exp-no-img-hero reveal">
+      <span class="label" style="margin-bottom:16px">Who this is for</span>
+      <p style="font-family:var(--ff-serif);font-size:clamp(20px,2.8vw,34px);font-weight:300;color:var(--white);line-height:1.3;max-width:680px">Venue owners who know they want to host events, but don't know where to start — or haven't found the right format yet.</p>
+    </div>
+  </section>
+  <section class="wrap section-pad" style="padding-top:0">
+    <span class="label reveal" style="margin-bottom:28px">What we offer</span>
+    <div class="bullets-grid">
+      <div class="bullet-item reveal"><p class="bullet-num">01</p><p class="bullet-title">Space Assessment</p><p class="bullet-desc">Understanding what your venue can physically and acoustically support — and what it naturally lends itself to.</p></div>
+      <div class="bullet-item reveal d2"><p class="bullet-num">02</p><p class="bullet-title">Event Identity</p><p class="bullet-desc">Positioning your venue in the local nightlife ecosystem — what kind of nights make sense for your brand and neighborhood.</p></div>
+      <div class="bullet-item reveal d3"><p class="bullet-num">03</p><p class="bullet-title">Programming Calendar</p><p class="bullet-desc">A considered event calendar — monthly, quarterly, or seasonal — built to grow your audience consistently.</p></div>
+      <div class="bullet-item reveal d4"><p class="bullet-num">04</p><p class="bullet-title">Revenue Framework</p><p class="bullet-desc">How to structure ticket pricing, covers, artist fees, and F&amp;B uplift to make events genuinely profitable.</p></div>
+    </div>
+    <div style="margin-top:48px;display:flex;gap:16px;flex-wrap:wrap" class="reveal d2">
+      <button class="btn" onclick="go('collaborate')">Book a consultation</button>
+      <button class="btn-ghost" onclick="go('experiences')">← Back</button>
+    </div>
+  </section>
+</div></div>
+
+<!-- ══ EXP: TALENT ══════════════════════════════════════════════════════════ -->
+<div id="page-exp-talent" class="page"><div class="pg">
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Service — Talent Placement</span>
+      <h1 class="page-hero-h1 reveal d1">The right artist<br>for your <em>room.</em></h1>
+      <p class="page-hero-sub reveal d2">We match artists from our curated roster to venues that suit their sound — creating residencies, one-offs, and ongoing relationships that benefit both sides.</p>
+    </div>
+  </div>
+  <div class="exp-detail-img reveal-scale"><img src="https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?auto=format&fit=crop&w=1600&q=80" alt="Live performance at bar"/></div>
+  <section class="wrap section-pad">
+    <span class="label reveal" style="margin-bottom:28px">How we work</span>
+    <div class="bullets-grid">
+      <div class="bullet-item reveal"><p class="bullet-num">01</p><p class="bullet-title">Curation</p><p class="bullet-desc">We shortlist artists from our roster whose sound, style, and draw matches your venue's vibe and capacity.</p></div>
+      <div class="bullet-item reveal d2"><p class="bullet-num">02</p><p class="bullet-title">Booking</p><p class="bullet-desc">We handle all negotiations, contracts, technical riders, and scheduling — zero admin on your end.</p></div>
+      <div class="bullet-item reveal d3"><p class="bullet-num">03</p><p class="bullet-title">Residencies</p><p class="bullet-desc">Building loyal, recurring audiences through monthly or quarterly artist residencies at your venue.</p></div>
+      <div class="bullet-item reveal d4"><p class="bullet-num">04</p><p class="bullet-title">Co-Promotion</p><p class="bullet-desc">Access to our event-goer community and social channels to drive discovery and ticket sales for your night.</p></div>
+    </div>
+    <div style="margin-top:48px;display:flex;gap:16px;flex-wrap:wrap" class="reveal d2">
+      <button class="btn" onclick="go('collaborate')">Book talent for your venue</button>
+      <button class="btn-ghost" onclick="go('experiences')">← Back</button>
+    </div>
+  </section>
+</div></div>
+
+
+<!-- ══ EVENTS (FOR EVENT-GOERS) ══════════════════════════════════════════════ -->
+<div id="page-events" class="page"><div class="pg">
+
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Upcoming Events</span>
+      <h1 class="page-hero-h1 reveal d1">Nights worth<br><em>going out for.</em></h1>
+      <p class="page-hero-sub reveal d2">Every event here has been handpicked. No generic gigs — only curated evenings in interesting venues across Indian cities.</p>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding:clamp(40px,6vw,72px) clamp(20px,5vw,72px) clamp(80px,10vw,140px)">
+
+    <!-- Filter Pills -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px" class="reveal">
+      <button style="padding:8px 18px;background:rgba(37,99,255,.2);border:1px solid rgba(37,99,255,.4);color:var(--white);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">All</button>
+      <button style="padding:8px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">Live Music</button>
+      <button style="padding:8px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">DJ Sets</button>
+      <button style="padding:8px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">Rooftop</button>
+      <button style="padding:8px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">Dining Experience</button>
+      <button style="padding:8px 18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);font-family:var(--ff-sans);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .3s">Brunch</button>
+    </div>
+
+    <!-- Event listings -->
+    <article class="journal-article reveal" onclick="go('events')">
+      <div class="j-num">01</div>
+      <div>
+        <p class="j-meta">Sunday, 27 Apr · Bandra, Mumbai · ₹800 onwards</p>
+        <h2 class="j-title">Sunday Soul Sessions — Live Jazz Brunch</h2>
+        <p class="j-desc">An intimate jazz brunch at The Ivory Bar, featuring a rotating quartet and a bottomless brunch menu. Perfect for slow Sunday mornings done right.</p>
+      </div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d1" onclick="go('events')">
+      <div class="j-num">02</div>
+      <div>
+        <p class="j-meta">Friday, 2 May · Aerocity, Delhi · ₹1200 onwards</p>
+        <h2 class="j-title">Skyline Sundowners — Rooftop Edition</h2>
+        <p class="j-desc">Sunset cocktails, a deep-house DJ set, and a curated small-plates menu from Altitude Bar's kitchen. One of Delhi's most-awaited monthly rooftop events.</p>
+      </div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d2" onclick="go('events')">
+      <div class="j-num">03</div>
+      <div>
+        <p class="j-meta">Saturday, 10 May · Indiranagar, Bangalore · ₹1500 onwards</p>
+        <h2 class="j-title">Frequency — The Quarterly Electronic Night</h2>
+        <p class="j-desc">Our quarterly flagship underground electronic night returns to The Cellar. Featuring VØLTEX and two surprise acts across two rooms, from 10pm to 4am.</p>
+      </div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d3" onclick="go('events')">
+      <div class="j-num">04</div>
+      <div>
+        <p class="j-meta">Thursday, 15 May · Juhu, Mumbai · ₹2000 onwards</p>
+        <h2 class="j-title">Chef's Table &amp; Sound — An Immersive Dining Evening</h2>
+        <p class="j-desc">A seven-course tasting menu by Chef Arora, paired with a live ambient performance by Nyx. Limited to 30 covers — reserve early.</p>
+      </div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d3" onclick="go('events')">
+      <div class="j-num">05</div>
+      <div>
+        <p class="j-meta">Saturday, 24 May · Calangute, Goa · ₹600 onwards</p>
+        <h2 class="j-title">Moonrise Sessions — Full Moon Beach Bar Night</h2>
+        <p class="j-desc">A full moon gathering on Goa's north coast, hosted by Aura Collective. Afro-house, open-air dancing, and bar food until midnight.</p>
+      </div>
+      <span class="j-arrow">→</span>
+    </article>
+
+    <div class="glass-liquid reveal" style="margin-top:56px;padding:40px;text-align:center">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;line-height:1.8">Want early access to new events?</p>
+      <p style="font-family:var(--ff-serif);font-size:26px;font-weight:300;color:var(--white);margin-bottom:24px">Join the <em>inner circle.</em></p>
+      <button class="btn" onclick="go('collaborate')">Get on the list</button>
+    </div>
+  </section>
+
+</div></div><!-- /events -->
+
+
+<!-- ══ ARTISTS ══════════════════════════════════════════════════════════════ -->
+<div id="page-artists" class="page"><div class="pg">
+
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Our Roster</span>
+      <h1 class="page-hero-h1 reveal d1">Artists we<br><em>believe in.</em></h1>
+      <p class="page-hero-sub reveal d1" style="margin-top:12px">Available for bookings at bars, restaurants, rooftops, and private events across India.</p>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding:clamp(40px,6vw,72px) clamp(20px,5vw,72px) clamp(80px,10vw,140px)">
+    <div class="roster-grid">
+      <div class="roster-card reveal">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="DJ Solaris"/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">DJ Solaris</p><p class="roster-genre">House / Progressive</p><p class="roster-city">Mumbai · Ideal for bars, clubs, rooftops</p></div>
+      </div>
+      <div class="roster-card reveal d2">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Nyx"/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">Nyx</p><p class="roster-genre">Deep House / Ambient</p><p class="roster-city">Delhi · Ideal for restaurants, lounges</p></div>
+      </div>
+      <div class="roster-card reveal d3">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=600&q=80" alt="VØLTEX"/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">VØLTEX</p><p class="roster-genre">Drum &amp; Bass</p><p class="roster-city">Bangalore · Ideal for warehouse, bars</p></div>
+      </div>
+      <div class="roster-card reveal d1">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?auto=format&fit=crop&w=600&q=80" alt="Aura Collective"/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">Aura Collective</p><p class="roster-genre">Afro / Disco House</p><p class="roster-city">Goa · Ideal for beach bars, rooftops</p></div>
+      </div>
+      <div class="roster-card reveal d2">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Rohan Das"/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">Rohan Das</p><p class="roster-genre">Jazz / Contemporary</p><p class="roster-city">Pune · Ideal for restaurants, supper clubs</p></div>
+      </div>
+      <div class="roster-card reveal d3">
+        <div class="roster-img">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=600&q=80" alt="Zara K."/>
+          <div class="roster-reveal"><button class="btn" style="font-size:10px;padding:9px 20px;border-color:var(--white)" onclick="go('collaborate')">Book for your venue</button></div>
+        </div>
+        <div class="roster-info"><p class="roster-name">Zara K.</p><p class="roster-genre">Nu-Disco / Funk</p><p class="roster-city">Hyderabad · Ideal for bars, pop-ups</p></div>
+      </div>
+    </div>
+
+    <div class="glass-liquid reveal" style="margin-top:56px;padding:40px;text-align:center">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.8">Are you a venue owner looking to book talent? Or an artist looking to join our roster?</p>
+      <button class="btn" onclick="go('collaborate')">Get in touch</button>
+    </div>
+  </section>
+
+</div></div><!-- /artists -->
+
+
+<!-- ══ JOURNAL ══════════════════════════════════════════════════════════════ -->
+<div id="page-journal" class="page"><div class="pg">
+
+  <div class="wrap page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Journal</span>
+      <h1 class="page-hero-h1 reveal d1">For venue owners<br>&amp; the <em>night-curious.</em></h1>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding:clamp(40px,6vw,72px) clamp(20px,5vw,72px) clamp(80px,10vw,140px)">
+    <article class="journal-article reveal" onclick="go('journal')">
+      <div class="j-num">01</div>
+      <div><p class="j-meta">April 2025 · Guide · 8 min</p><h2 class="j-title">How to turn your restaurant into a Friday night destination</h2><p class="j-desc">The three things every venue owner should audit before hosting their first event.</p></div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d1" onclick="go('journal')">
+      <div class="j-num">02</div>
+      <div><p class="j-meta">March 2025 · Essay · 5 min</p><h2 class="j-title">What makes a night worth going out for?</h2><p class="j-desc">On curation, atmosphere, and why the best events feel inevitable — not accidental.</p></div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d2" onclick="go('journal')">
+      <div class="j-num">03</div>
+      <div><p class="j-meta">February 2025 · Analysis · 6 min</p><h2 class="j-title">The F&amp;B uplift from a well-curated event night</h2><p class="j-desc">Data from our venue partners shows what happens to bar revenue on live music nights. The numbers are clear.</p></div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d3" onclick="go('journal')">
+      <div class="j-num">04</div>
+      <div><p class="j-meta">January 2025 · Venue Story · 7 min</p><h2 class="j-title">How The Ivory Bar went from dead Sundays to sold-out brunches</h2><p class="j-desc">A case study in venue identity, programming, and the patience to build something loyal.</p></div>
+      <span class="j-arrow">→</span>
+    </article>
+    <article class="journal-article reveal d4" onclick="go('journal')">
+      <div class="j-num">05</div>
+      <div><p class="j-meta">December 2024 · For Event-Goers · 4 min</p><h2 class="j-title">How to find good nights in a city full of average ones</h2><p class="j-desc">A guide to discovering genuinely curated events — and avoiding everything else.</p></div>
+      <span class="j-arrow">→</span>
+    </article>
+  </section>
+
+</div></div><!-- /journal -->
+
+
+<!-- ══ COLLABORATE ══════════════════════════════════════════════════════════ -->
+<div id="page-collaborate" class="page"><div class="pg">
+
+  <div class="wrap page-hero" style="padding-bottom:clamp(40px,5vw,72px)">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="label page-hero-eyebrow reveal">Get Started</span>
+      <h1 class="page-hero-h1 reveal d1">Let's create<br><em>something</em> together.</h1>
+      <p class="page-hero-sub reveal d2">Whether you own a venue, you're looking for your next night out, or you're an artist looking for the right stage — we'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <section class="wrap" style="padding-bottom:clamp(80px,10vw,140px)">
+    <div id="collab-layout" style="display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(40px,8vw,120px);align-items:start">
+
+      <div class="reveal" style="display:flex;flex-direction:column;gap:16px">
+        <div class="glass-liquid" style="padding:32px">
+          <span class="label label-gold" style="margin-bottom:14px">Email</span>
+          <p style="font-size:14px;color:var(--white);letter-spacing:.3px">hello@nightlifegroove.in</p>
+        </div>
+        <div class="glass-liquid" style="padding:32px">
+          <span class="label label-gold" style="margin-bottom:14px">Cities</span>
+          <p style="font-size:14px;color:var(--white)">Mumbai · Delhi · Bangalore · Goa · Pune · Hyderabad</p>
+        </div>
+        <div class="glass-liquid" style="padding:32px">
+          <span class="label label-gold" style="margin-bottom:14px">Response time</span>
+          <p style="font-size:13px;color:var(--muted);line-height:1.75">We respond to all serious enquiries within 48 hours. All conversations held in confidence.</p>
+        </div>
+      </div>
+
+      <div class="reveal d2">
+        <div id="collab-success">
+          <p style="font-family:var(--ff-serif);font-size:40px;font-weight:300;font-style:italic;color:var(--gold);margin-bottom:16px">Thank you.</p>
+          <p style="font-size:14px;color:var(--muted);line-height:1.9">We'll be in touch within 48 hours. In the meantime, explore upcoming events.</p>
+        </div>
+        <div id="collab-form-wrap">
+          <div class="collab-tabs">
+            <button class="collab-tab active" data-tab="venue" onclick="setTab('venue')">Venue Owner</button>
+            <button class="collab-tab" data-tab="artist" onclick="setTab('artist')">Artist</button>
+            <button class="collab-tab" data-tab="other" onclick="setTab('other')">Event-Goer</button>
+          </div>
+          <form id="collab-form" onsubmit="submitCollab(event)" style="display:flex;flex-direction:column;gap:24px">
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" placeholder="Your name" required></div>
+              <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="hello@email.com" required></div>
+            </div>
+            <div class="field-venue show form-group" id="field-venue">
+              <label class="form-label">Venue name &amp; type</label>
+              <input type="text" class="form-input" placeholder="e.g. The Ivory Bar — cocktail lounge, Bandra">
+            </div>
+            <div class="field-artist form-group" id="field-artist">
+              <label class="form-label">Artist / stage name</label>
+              <input type="text" class="form-input" placeholder="How should we know you?">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tell us what you're looking for</label>
+              <textarea class="form-textarea" rows="5" placeholder="Venue owners: describe your space and what kind of events you have in mind. Artists: tell us about your sound. Event-goers: share your city and what nights you're looking for." required></textarea>
+            </div>
+            <div><button type="submit" class="btn">Send →</button></div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div></div><!-- /collaborate -->
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-brand">NightLife <em>Groove</em></p>
+      <p class="footer-desc">Connecting venue owners with event seekers — one curated night at a time.</p>
+    </div>
+    <div>
+      <span class="footer-col-title">Platform</span>
+      <button class="footer-link" onclick="go('home')">Home</button>
+      <button class="footer-link" onclick="go('about')">About</button>
+      <button class="footer-link" onclick="go('events')">Upcoming Events</button>
+      <button class="footer-link" onclick="go('artists')">Our Artists</button>
+    </div>
+    <div>
+      <span class="footer-col-title">For Venues</span>
+      <button class="footer-link" onclick="go('experiences')">Our Services</button>
+      <button class="footer-link" onclick="go('exp-curation')">Event Curation</button>
+      <button class="footer-link" onclick="go('exp-consultancy')">Night Consultancy</button>
+      <button class="footer-link" onclick="go('journal')">Journal</button>
+    </div>
+    <div>
+      <span class="footer-col-title">Connect</span>
+      <button class="footer-link" onclick="go('collaborate')">Get Started</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 NightLife Groove. All rights reserved.</p>
+    <div class="footer-socials">
+      <button class="footer-social">Instagram</button>
+      <button class="footer-social">Spotify</button>
+      <button class="footer-social">X</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+var currentPage='home', menuOpen=false;
+
+function go(pageId){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  var target=document.getElementById('page-'+pageId);
+  if(target){
+    target.classList.add('active');
+    var pg=target.querySelector('.pg');
+    if(pg){pg.style.animation='none';pg.offsetHeight;pg.style.animation=''}
+    target.querySelectorAll('.reveal,.reveal-scale').forEach(function(el){el.classList.remove('revealed')});
+    setTimeout(function(){triggerReveals()},80);
+  }
+  document.querySelectorAll('.nav-link').forEach(function(l){
+    l.classList.remove('active');
+    var oc=l.getAttribute('onclick')||'';
+    if(oc.indexOf("'"+pageId+"'")!==-1)l.classList.add('active');
+  });
+  if(menuOpen)toggleMenu();
+  window.scrollTo({top:0,behavior:'smooth'});
+  currentPage=pageId;
+}
+
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('mobile-menu').classList.toggle('open',menuOpen);
+  document.getElementById('hamburger').classList.toggle('open',menuOpen);
+  document.body.style.overflow=menuOpen?'hidden':'';
+}
+
+window.addEventListener('scroll',function(){
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+  triggerReveals();
+},{passive:true});
+
+function triggerReveals(){
+  var activePage=document.querySelector('.page.active');
+  if(!activePage)return;
+  var els=activePage.querySelectorAll('.reveal:not(.revealed),.reveal-scale:not(.revealed)');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(function(el){el.classList.add('revealed')});return;
+  }
+  els.forEach(function(el){
+    var rect=el.getBoundingClientRect();
+    if(rect.top<window.innerHeight-60)el.classList.add('revealed');
+  });
+}
+
+window.addEventListener('load',function(){triggerReveals()});
+
+function setTab(tab){
+  document.querySelectorAll('.collab-tab').forEach(function(t){t.classList.toggle('active',t.getAttribute('data-tab')===tab)});
+  var fV=document.getElementById('field-venue');
+  var fA=document.getElementById('field-artist');
+  if(fV)fV.classList.remove('show');
+  if(fA)fA.classList.remove('show');
+  if(tab==='venue'&&fV)fV.classList.add('show');
+  if(tab==='artist'&&fA)fA.classList.add('show');
+}
+
+function submitCollab(e){
+  e.preventDefault();
+  var w=document.getElementById('collab-form-wrap');
+  var s=document.getElementById('collab-success');
+  if(w)w.classList.add('hide');
+  if(s)s.classList.add('show');
+}
+</script>
+</body>
+</html>
